@@ -21,12 +21,24 @@ const PHOTOS: string[] = [
   "/photo/5.jpg",
 ]
 
+const LOCAL_VIDEOS = {
+  congratulations: "/video/IMG_1912.mov",
+  childhood: "/video/babar.mp4",
+}
+
+const VIDEO_SOURCES = {
+  congratulations: process.env.NEXT_PUBLIC_CONGRATULATION_VIDEO_URL ?? LOCAL_VIDEOS.congratulations,
+  childhood: process.env.NEXT_PUBLIC_CHILDHOOD_VIDEO_URL ?? LOCAL_VIDEOS.childhood,
+}
+
 export default function BirthdayPage() {
   const [stage, setStage] = useState<"countdown" | "reveal">("countdown")
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
   const [showPhoto, setShowPhoto] = useState(false)
   const [showVideo1, setShowVideo1] = useState(false)
   const [showVideo2, setShowVideo2] = useState(false)
+  const [video1Error, setVideo1Error] = useState(false)
+  const [video2Error, setVideo2Error] = useState(false)
 
   const handleCountdownComplete = () => {
     setStage("reveal")
@@ -112,7 +124,10 @@ export default function BirthdayPage() {
               <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Поздравление</p>
             </div>
             <button
-              onClick={() => setShowVideo1(true)}
+              onClick={() => {
+                setVideo1Error(false)
+                setShowVideo1(true)
+              }}
               className="relative w-48 h-48 md:w-64 md:h-64 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
               <Image
@@ -153,7 +168,10 @@ export default function BirthdayPage() {
               <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Привет из детства</p>
             </div>
             <button
-              onClick={() => setShowVideo2(true)}
+              onClick={() => {
+                setVideo2Error(false)
+                setShowVideo2(true)
+              }}
               className="relative w-48 h-48 md:w-64 md:h-64 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
               <Image
@@ -194,13 +212,21 @@ export default function BirthdayPage() {
                 >
                   Закрыть
                 </button>
-                <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  title="Поздравление от семьи"
+                <video
+                  src={VIDEO_SOURCES.congratulations}
                   className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
+                  controls
+                  playsInline
+                  preload="metadata"
+                  poster="/congratulation.png"
+                  onError={() => setVideo1Error(true)}
                 />
+                {video1Error && (
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white text-sm p-3">
+                    Не удалось загрузить видео. Положите файл в <code>/public/video/IMG_1912.mov</code> или задайте{" "}
+                    <code>NEXT_PUBLIC_CONGRATULATION_VIDEO_URL</code>.
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -221,13 +247,21 @@ export default function BirthdayPage() {
                 >
                   Закрыть
                 </button>
-                <iframe
-                  src="https://www.youtube.com/embed/0gRJJaRZoxE"
-                  title="Бабар – Король Элефантии"
+                <video
+                  src={VIDEO_SOURCES.childhood}
                   className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
+                  controls
+                  playsInline
+                  preload="metadata"
+                  poster="/babar.png"
+                  onError={() => setVideo2Error(true)}
                 />
+                {video2Error && (
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white text-sm p-3">
+                    Не удалось загрузить видео. Положите файл в <code>/public/video/babar.mp4</code> или задайте{" "}
+                    <code>NEXT_PUBLIC_CHILDHOOD_VIDEO_URL</code>.
+                  </div>
+                )}
               </div>
             </div>
           )}
