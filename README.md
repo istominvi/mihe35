@@ -33,6 +33,21 @@ GitHub Web Upload ограничен ~25 MB на файл. Это огранич
 
 Проект собирается как статика через `output: 'export'` в `next.config.mjs`, поэтому он подходит для GitHub Pages.
 
+
+### Если в логах есть `actions/configure-pages@v5` и ошибка `Resource not accessible by integration`
+
+Это не ошибка `pnpm build`. Это падение на шаге автосоздания Pages-сайта через API.
+
+- `Get Pages site failed. Error: Not Found`
+- `Create Pages site failed. Error: Resource not accessible by integration`
+
+Обычно так бывает, когда:
+
+1. Pages ещё не включён в `Settings → Pages`.
+2. Токен GitHub Actions не имеет прав админа на создание Pages сайта через API.
+
+В этом репозитории деплой сделан **без** `actions/configure-pages` — сначала включаем Pages один раз вручную, потом обычный workflow только билдит и деплоит `out/`.
+
 ## Custom domain `mihe35.ru`
 
 Для автопривязки домена в деплое добавлены:
