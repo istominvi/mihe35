@@ -203,7 +203,7 @@ export default function BirthdayPage() {
               onClick={() => setShowVideo1(false)}
             >
               <div 
-                className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden"
+                className="relative w-full max-w-md bg-black rounded-lg overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
@@ -214,8 +214,9 @@ export default function BirthdayPage() {
                 </button>
                 <video
                   src={VIDEO_SOURCES.congratulations}
-                  className="w-full h-full"
+                  className="w-full h-auto max-h-[85vh] object-contain bg-black"
                   controls
+                  autoPlay
                   playsInline
                   preload="metadata"
                   poster="/congratulation.png"
@@ -251,6 +252,7 @@ export default function BirthdayPage() {
                   src={VIDEO_SOURCES.childhood}
                   className="w-full h-full"
                   controls
+                  autoPlay
                   playsInline
                   preload="metadata"
                   poster="/babar.png"
