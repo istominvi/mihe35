@@ -49,9 +49,9 @@ export default function BirthdayPage() {
           {/* Баннер HAPPY BIRTHDAY - изображение на всю ширину */}
           <div className="fixed top-0 left-0 right-0 z-40">
             <img
-              src="/happy.png"
+              src="/happy2.png"
               alt="Happy Birthday"
-              className="w-full h-auto"
+              className="w-full h-auto pointer-events-none"
             />
           </div>
           
@@ -70,7 +70,7 @@ export default function BirthdayPage() {
             
             {/* Заголовок с заходом на изображение */}
             <div className="relative -mt-12 md:-mt-20 z-10">
-              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-tight text-balance px-4 animate-shimmer drop-shadow-lg">
+              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-tight text-balance px-4 animate-shimmer birthday-title-glow">
                 Любимый наш Миша, поздравляем тебя с 35-летием!
               </h1>
             </div>
