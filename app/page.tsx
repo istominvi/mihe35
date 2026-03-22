@@ -3,7 +3,6 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Pacifico } from "next/font/google"
-import { Countdown } from "@/components/birthday/Countdown"
 import { Confetti } from "@/components/birthday/Confetti"
 import { PhotoModal } from "@/components/birthday/PhotoModal"
 
@@ -33,16 +32,11 @@ const CHILDHOOD_VK_EMBED_URL =
   "https://vkvideo.ru/video_ext.php?oid=-236919220&id=456239017&hd=2&autoplay=1"
 
 export default function BirthdayPage() {
-  const [stage, setStage] = useState<"countdown" | "reveal">("countdown")
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
   const [showPhoto, setShowPhoto] = useState(false)
   const [showVideo1, setShowVideo1] = useState(false)
   const [showVideo2, setShowVideo2] = useState(false)
   const [video1Error, setVideo1Error] = useState(false)
-
-  const handleCountdownComplete = () => {
-    setStage("reveal")
-  }
 
   const handleAlbumClick = () => {
     if (PHOTOS.length > 0) {
@@ -57,10 +51,7 @@ export default function BirthdayPage() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
-      {stage === "countdown" ? (
-        <Countdown onComplete={handleCountdownComplete} />
-      ) : (
-        <div className="relative min-h-screen bg-white transition-all duration-1000">
+      <div className="relative min-h-screen bg-white transition-all duration-1000">
           {/* Конфетти */}
           <Confetti />
           
@@ -259,8 +250,7 @@ export default function BirthdayPage() {
               </div>
             </div>
           )}
-        </div>
-      )}
+      </div>
       
       <style jsx global>{`
         @keyframes fade-in {
