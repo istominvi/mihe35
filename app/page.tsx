@@ -52,12 +52,12 @@ export default function BirthdayPage() {
           {/* Конфетти */}
           <Confetti />
           
-          {/* Баннер HAPPY BIRTHDAY - изображение на всю ширину */}
+          {/* Баннер HAPPY BIRTHDAY */}
           <div className="fixed inset-x-0 top-0 z-40 pointer-events-none">
             <img
-              src="/happy.png"
+              src="/happy3.png"
               alt="Happy Birthday"
-              className="block w-full h-auto align-top"
+              className="block w-full h-auto max-h-[92px] md:max-h-[120px] object-contain object-top align-top"
             />
           </div>
           
@@ -76,14 +76,14 @@ export default function BirthdayPage() {
             
             {/* Заголовок с заходом на изображение */}
             <div className="relative mt-2 md:mt-4 z-10 px-4">
-              <div className="relative mx-auto max-w-4xl w-full py-4 md:py-6 flex items-center justify-center">
+              <div className="relative mx-auto max-w-4xl w-full py-8 md:py-10 flex items-center justify-center overflow-visible">
                 <span
                   aria-hidden="true"
-                  className={`pointer-events-none absolute inset-0 z-0 flex items-center justify-center text-center text-2xl md:text-4xl lg:text-5xl leading-[1.25] text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)] px-2 md:px-4 ${pacifico.className}`}
+                  className={`pointer-events-none absolute inset-x-0 -inset-y-6 md:-inset-y-8 z-0 flex items-center justify-center text-center text-3xl md:text-5xl lg:text-6xl leading-[1.45] text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)] px-2 md:px-4 ${pacifico.className}`}
                 >
                   Любимый наш Миша, поздравляем тебя с 35-летием!
                 </span>
-                <h1 className={`relative z-10 text-2xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-[1.25] text-balance animate-shimmer drop-shadow-lg px-2 md:px-4 ${pacifico.className}`}>
+                <h1 className={`relative z-10 block pt-2 pb-4 text-3xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-[1.45] text-balance animate-shimmer drop-shadow-lg px-2 md:px-4 ${pacifico.className}`}>
                   Любимый наш Миша, поздравляем тебя с 35-летием!
                 </h1>
               </div>
