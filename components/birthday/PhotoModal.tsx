@@ -71,6 +71,8 @@ export function PhotoModal({ src, currentIndex, total, onClose, onNext, onPrev }
             fill
             className="object-contain"
             sizes="(max-width: 768px) 85vw, 900px"
+            quality={100}
+            unoptimized
             onLoad={() => setIsLoading(false)}
           />
           {isLoading && (

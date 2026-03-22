@@ -69,9 +69,12 @@ export default function BirthdayPage() {
           
           {/* Баннер HAPPY BIRTHDAY */}
           <div className="fixed inset-x-0 top-0 z-40 pointer-events-none">
-            <img
+            <Image
               src="/happy3.png"
               alt="Happy Birthday"
+              width={1920}
+              height={240}
+              priority
               className="block w-full h-auto max-h-[92px] md:max-h-[120px] object-contain object-top align-top"
             />
           </div>
@@ -84,6 +87,8 @@ export default function BirthdayPage() {
                 alt="Миша с шарами 35"
                 width={800}
                 height={1000}
+                quality={100}
+                unoptimized
                 className="w-full h-auto"
                 priority
               />
@@ -138,6 +143,7 @@ export default function BirthdayPage() {
                 alt="Поздравление"
                 width={300}
                 height={300}
+                sizes="(max-width: 768px) 12rem, 16rem"
                 className="w-full h-full object-contain drop-shadow-xl animate-float"
               />
             </button>
@@ -158,6 +164,7 @@ export default function BirthdayPage() {
                 alt="Фотоальбом"
                 width={300}
                 height={300}
+                sizes="(max-width: 768px) 12rem, 16rem"
                 className="w-full h-full object-contain drop-shadow-xl animate-float"
                 style={{ animationDelay: "0.5s" }}
               />
@@ -181,6 +188,7 @@ export default function BirthdayPage() {
                 alt="Бабар"
                 width={300}
                 height={300}
+                sizes="(max-width: 768px) 12rem, 16rem"
                 className="w-full h-full object-contain drop-shadow-xl animate-float"
                 style={{ animationDelay: "1s" }}
               />
