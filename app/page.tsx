@@ -47,11 +47,11 @@ export default function BirthdayPage() {
           <Confetti />
           
           {/* Баннер HAPPY BIRTHDAY - изображение на всю ширину */}
-          <div className="fixed top-0 left-0 right-0 z-40">
+          <div className="fixed inset-x-0 top-0 z-40 pointer-events-none">
             <img
               src="/happy.png"
               alt="Happy Birthday"
-              className="w-full h-auto"
+              className="block w-full h-auto align-top"
             />
           </div>
           
@@ -69,10 +69,18 @@ export default function BirthdayPage() {
             </div>
             
             {/* Заголовок с заходом на изображение */}
-            <div className="relative -mt-12 md:-mt-20 z-10">
-              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-tight text-balance px-4 animate-shimmer drop-shadow-lg">
-                Любимый наш Миша, поздравляем тебя с 35-летием!
-              </h1>
+            <div className="relative -mt-12 md:-mt-20 z-10 px-4">
+              <div className="relative mx-auto max-w-4xl">
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 z-0 text-center text-2xl md:text-4xl lg:text-5xl font-bold leading-tight text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)]"
+                >
+                  Любимый наш Миша, поздравляем тебя с 35-летием!
+                </span>
+                <h1 className="relative z-10 text-2xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-tight text-balance animate-shimmer drop-shadow-lg">
+                  Любимый наш Миша, поздравляем тебя с 35-летием!
+                </h1>
+              </div>
             </div>
           </div>
           
