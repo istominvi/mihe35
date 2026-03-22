@@ -13,11 +13,16 @@ const pacifico = Pacifico({
 })
 
 const PHOTOS: string[] = [
-  "/photo/1.jpg",
-  "/photo/2.jpg",
-  "/photo/3.jpg",
-  "/photo/4.jpg",
-  "/photo/5.jpg",
+  "/photo/01.png",
+  "/photo/02.png",
+  "/photo/03.png",
+  "/photo/04.png",
+  "/photo/05.png",
+  "/photo/06.png",
+  "/photo/07.png",
+  "/photo/08.png",
+  "/photo/09.png",
+  "/photo/10.png",
 ]
 
 const LOCAL_VIDEOS = {
