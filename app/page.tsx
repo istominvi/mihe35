@@ -23,13 +23,15 @@ const PHOTOS: string[] = [
 
 const LOCAL_VIDEOS = {
   congratulations: "/video/congratulation.mp4",
-  childhood: "/video/babar.mp4",
 }
 
 const VIDEO_SOURCES = {
   congratulations: process.env.NEXT_PUBLIC_CONGRATULATION_VIDEO_URL ?? LOCAL_VIDEOS.congratulations,
-  childhood: process.env.NEXT_PUBLIC_CHILDHOOD_VIDEO_URL ?? LOCAL_VIDEOS.childhood,
 }
+
+const VK_CHILDHOOD_EMBED_URL =
+  process.env.NEXT_PUBLIC_CHILDHOOD_VK_EMBED_URL ??
+  "https://vkvideo.ru/video_ext.php?oid=-236919220&id=456239017&hd=2&autoplay=1"
 
 export default function BirthdayPage() {
   const [stage, setStage] = useState<"countdown" | "reveal">("countdown")
@@ -38,7 +40,6 @@ export default function BirthdayPage() {
   const [showVideo1, setShowVideo1] = useState(false)
   const [showVideo2, setShowVideo2] = useState(false)
   const [video1Error, setVideo1Error] = useState(false)
-  const [video2Error, setVideo2Error] = useState(false)
 
   const handleCountdownComplete = () => {
     setStage("reveal")
@@ -169,8 +170,7 @@ export default function BirthdayPage() {
             </div>
             <button
               onClick={() => {
-                setVideo2Error(false)
-                setShowVideo2(true)
+                setShowVideo2((prev) => !prev)
               }}
               className="relative w-48 h-48 md:w-64 md:h-64 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
@@ -183,6 +183,20 @@ export default function BirthdayPage() {
                 style={{ animationDelay: "1s" }}
               />
             </button>
+
+            {showVideo2 && (
+              <div className="w-full max-w-4xl mt-6">
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl bg-black">
+                  <iframe
+                    src={VK_CHILDHOOD_EMBED_URL}
+                    className="absolute inset-0 w-full h-full"
+                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+                    allowFullScreen
+                    title="Привет из детства — VK Video"
+                  />
+                </div>
+              </div>
+            )}
             
             {/* Отступ снизу */}
             <div className="h-16" />
@@ -231,40 +245,6 @@ export default function BirthdayPage() {
             </div>
           )}
           
-          {/* Модальное окно видео 2 - Бабар */}
-          {showVideo2 && (
-            <div 
-              className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4"
-              onClick={() => setShowVideo2(false)}
-            >
-              <div 
-                className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <button
-                  onClick={() => setShowVideo2(false)}
-                  className={`absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10 ${pacifico.className}`}
-                >
-                  Закрыть
-                </button>
-                <video
-                  src={VIDEO_SOURCES.childhood}
-                  className="w-full h-full"
-                  controls
-                  playsInline
-                  preload="metadata"
-                  poster="/babar.png"
-                  onError={() => setVideo2Error(true)}
-                />
-                {video2Error && (
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white text-sm p-3">
-                    Не удалось загрузить видео. Положите файл в <code>/public/video/babar.mp4</code> или задайте{" "}
-                    <code>NEXT_PUBLIC_CHILDHOOD_VIDEO_URL</code>.
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
         </div>
       )}
       
