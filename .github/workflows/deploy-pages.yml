@@ -16,7 +16,8 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  deploy:
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -58,6 +59,7 @@ jobs:
           cname: mihe35.ru
 
   deploy:
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
     environment:
