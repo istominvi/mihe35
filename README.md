@@ -20,56 +20,35 @@ GitHub Web Upload ограничен ~25 MB на файл. Это огранич
 - Через `git push` можно отправлять файлы до 100 MB (hard limit GitHub для обычного git-объекта).
 - Для больших файлов используйте Git LFS или внешнее хранилище (Cloudflare R2, S3, Bunny/CDN и т.д.) + `NEXT_PUBLIC_*_VIDEO_URL`.
 
-## Деплой на GitHub Pages (статический)
+## Деплой на GitHub Pages (после merge в `main`)
 
-Проект уже настроен на static export (`output: 'export'` в `next.config.mjs`).
+В репозитории уже добавлен workflow: `.github/workflows/deploy-pages.yml`.
 
-Пример workflow `.github/workflows/deploy-pages.yml`:
+Что он делает:
 
-```yaml
-name: Deploy to GitHub Pages
+1. На каждый `push` в `main` (включая merge PR) запускает сборку.
+2. Ставит Node.js 22 и pnpm 10.
+3. Выполняет `pnpm install --frozen-lockfile` и `pnpm build`.
+4. Публикует папку `out/` в GitHub Pages через `actions/deploy-pages`.
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+Проект собирается как статика через `output: 'export'` в `next.config.mjs`, поэтому он подходит для GitHub Pages.
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+## Custom domain `mihe35.ru`
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
+Для автопривязки домена в деплое добавлены:
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
+- `public/CNAME` со значением `mihe35.ru`
+- `public/.nojekyll` для корректной раздачи статических `_next/*` файлов
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
-```
+Это значит, что при каждом деплое GitHub Pages будет использовать твой домен из `CNAME`.
 
-Если сайт не на custom domain, обычно нужен `basePath` под имя репозитория (например `/mihe35`).
+### Что включить в настройках GitHub (один раз)
+
+1. `Settings` → `Pages`.
+2. В `Build and deployment` выбрать **Source = GitHub Actions** (если ещё не включено).
+3. Убедиться, что домен `mihe35.ru` отображается в Custom domain (обычно подтянется автоматически после первого деплоя).
+4. Включить `Enforce HTTPS` после того, как сертификат выпустится (может занять до нескольких минут/часов).
+
+После этого любой merge в `main` будет автоматически выкатывать сайт на GitHub Pages.
+
+> Примечание: в workflow включен `actions/configure-pages` с `enablement: true`, чтобы первый запуск мог автоматически инициализировать Pages в репозитории.
