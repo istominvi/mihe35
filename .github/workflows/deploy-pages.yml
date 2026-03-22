@@ -1,8 +1,5 @@
 name: Deploy static site to GitHub Pages
 
-# Note: this workflow assumes Pages is already enabled in repository settings
-# (Settings → Pages → Build and deployment → Source: GitHub Actions).
-
 on:
   push:
     branches:
@@ -28,6 +25,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: false
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -42,23 +44,26 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
+      - name: Build static export
+        env:
+          BASE_PATH: ""
+          NEXT_PUBLIC_BASE_PATH: ""
         run: pnpm build
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       pages: write
       id-token: write
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
