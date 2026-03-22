@@ -22,7 +22,7 @@ const PHOTOS: string[] = [
 ]
 
 const LOCAL_VIDEOS = {
-  congratulations: "/video/IMG_1912.mov",
+  congratulations: "/video/congratulation.mp4",
   childhood: "/video/babar.mp4",
 }
 
@@ -223,7 +223,7 @@ export default function BirthdayPage() {
                 />
                 {video1Error && (
                   <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white text-sm p-3">
-                    Не удалось загрузить видео. Положите файл в <code>/public/video/IMG_1912.mov</code> или задайте{" "}
+                    Не удалось загрузить видео. Положите файл в <code>/public/video/congratulation.mp4</code> или задайте{" "}
                     <code>NEXT_PUBLIC_CONGRATULATION_VIDEO_URL</code>.
                   </div>
                 )}

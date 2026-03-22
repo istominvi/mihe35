@@ -5,7 +5,7 @@
 Страница поддерживает 2 способа источника видео:
 
 1. **Локальные файлы** (по умолчанию):
-   - `public/video/IMG_1912.mov`
+   - `public/video/congratulation.mp4`
    - `public/video/babar.mp4`
 2. **Внешние URL через переменные окружения**:
    - `NEXT_PUBLIC_CONGRATULATION_VIDEO_URL`
