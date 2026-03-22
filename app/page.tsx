@@ -101,7 +101,7 @@ export default function BirthdayPage() {
                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
                   Береги себя и свою семью!
                 </p>
-                <p className="text-2xl md:text-3xl font-semibold text-amber-600 mt-6">
+                <p className={`text-2xl md:text-3xl font-semibold text-amber-600 mt-6 ${pacifico.className}`}>
                   Любим тебя!
                 </p>
               </div>
@@ -109,7 +109,7 @@ export default function BirthdayPage() {
             
             {/* Первая коробка - Поздравление (видео) */}
             <div className="text-center mb-4">
-              <p className="text-xl md:text-2xl font-medium text-amber-700">Поздравление</p>
+              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Поздравление</p>
             </div>
             <button
               onClick={() => setShowVideo1(true)}
@@ -129,7 +129,7 @@ export default function BirthdayPage() {
             
             {/* Вторая коробка - Альбом с фотками */}
             <div className="text-center mb-4">
-              <p className="text-xl md:text-2xl font-medium text-amber-700">Фоточки</p>
+              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Фоточки</p>
             </div>
             <button
               onClick={handleAlbumClick}
@@ -150,7 +150,7 @@ export default function BirthdayPage() {
             
             {/* Третья коробка - Бабар */}
             <div className="text-center mb-4">
-              <p className="text-xl md:text-2xl font-medium text-amber-700">Привет из детства</p>
+              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Привет из детства</p>
             </div>
             <button
               onClick={() => setShowVideo2(true)}
@@ -190,7 +190,7 @@ export default function BirthdayPage() {
               >
                 <button
                   onClick={() => setShowVideo1(false)}
-                  className="absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10"
+                  className={`absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10 ${pacifico.className}`}
                 >
                   Закрыть
                 </button>
@@ -217,7 +217,7 @@ export default function BirthdayPage() {
               >
                 <button
                   onClick={() => setShowVideo2(false)}
-                  className="absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10"
+                  className={`absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10 ${pacifico.className}`}
                 >
                   Закрыть
                 </button>
