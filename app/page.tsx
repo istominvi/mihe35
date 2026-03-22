@@ -2,11 +2,17 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import { Pacifico } from "next/font/google"
 import { Countdown } from "@/components/birthday/Countdown"
 import { Confetti } from "@/components/birthday/Confetti"
 import { PhotoModal } from "@/components/birthday/PhotoModal"
 
 // Список фотографий из /public/photo
+const pacifico = Pacifico({
+  weight: "400",
+  subsets: ["latin", "cyrillic"],
+})
+
 const PHOTOS: string[] = [
   "/photo/1.jpg",
   "/photo/2.jpg",
@@ -47,11 +53,11 @@ export default function BirthdayPage() {
           <Confetti />
           
           {/* Баннер HAPPY BIRTHDAY - изображение на всю ширину */}
-          <div className="fixed top-0 left-0 right-0 z-40">
+          <div className="fixed inset-x-0 top-0 z-40 pointer-events-none">
             <img
               src="/happy.png"
               alt="Happy Birthday"
-              className="w-full h-auto"
+              className="block w-full h-auto align-top"
             />
           </div>
           
@@ -69,10 +75,18 @@ export default function BirthdayPage() {
             </div>
             
             {/* Заголовок с заходом на изображение */}
-            <div className="relative -mt-12 md:-mt-20 z-10">
-              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-tight text-balance px-4 animate-shimmer drop-shadow-lg">
-                Любимый наш Миша, поздравляем тебя с 35-летием!
-              </h1>
+            <div className="relative mt-2 md:mt-4 z-10 px-4">
+              <div className="relative mx-auto max-w-4xl w-full py-4 md:py-6 flex items-center justify-center">
+                <span
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute inset-0 z-0 flex items-center justify-center text-center text-2xl md:text-4xl lg:text-5xl leading-[1.25] text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)] px-2 md:px-4 ${pacifico.className}`}
+                >
+                  Любимый наш Миша, поздравляем тебя с 35-летием!
+                </span>
+                <h1 className={`relative z-10 text-2xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-[1.25] text-balance animate-shimmer drop-shadow-lg px-2 md:px-4 ${pacifico.className}`}>
+                  Любимый наш Миша, поздравляем тебя с 35-летием!
+                </h1>
+              </div>
             </div>
           </div>
           
@@ -87,7 +101,7 @@ export default function BirthdayPage() {
                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
                   Береги себя и свою семью!
                 </p>
-                <p className="text-2xl md:text-3xl font-semibold text-amber-600 mt-6">
+                <p className={`text-2xl md:text-3xl font-semibold text-amber-600 mt-6 ${pacifico.className}`}>
                   Любим тебя!
                 </p>
               </div>
@@ -95,7 +109,7 @@ export default function BirthdayPage() {
             
             {/* Первая коробка - Поздравление (видео) */}
             <div className="text-center mb-4">
-              <p className="text-xl md:text-2xl font-medium text-amber-700">Поздравление</p>
+              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Поздравление</p>
             </div>
             <button
               onClick={() => setShowVideo1(true)}
@@ -115,7 +129,7 @@ export default function BirthdayPage() {
             
             {/* Вторая коробка - Альбом с фотками */}
             <div className="text-center mb-4">
-              <p className="text-xl md:text-2xl font-medium text-amber-700">Фоточки</p>
+              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Фоточки</p>
             </div>
             <button
               onClick={handleAlbumClick}
@@ -136,7 +150,7 @@ export default function BirthdayPage() {
             
             {/* Третья коробка - Бабар */}
             <div className="text-center mb-4">
-              <p className="text-xl md:text-2xl font-medium text-amber-700">Привет из детства</p>
+              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Привет из детства</p>
             </div>
             <button
               onClick={() => setShowVideo2(true)}
@@ -176,7 +190,7 @@ export default function BirthdayPage() {
               >
                 <button
                   onClick={() => setShowVideo1(false)}
-                  className="absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10"
+                  className={`absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10 ${pacifico.className}`}
                 >
                   Закрыть
                 </button>
@@ -203,7 +217,7 @@ export default function BirthdayPage() {
               >
                 <button
                   onClick={() => setShowVideo2(false)}
-                  className="absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10"
+                  className={`absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10 ${pacifico.className}`}
                 >
                   Закрыть
                 </button>
