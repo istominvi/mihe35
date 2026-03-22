@@ -23,13 +23,14 @@ const PHOTOS: string[] = [
 
 const LOCAL_VIDEOS = {
   congratulations: "/video/congratulation.mp4",
-  childhood: "/video/babar.mp4",
 }
 
 const VIDEO_SOURCES = {
   congratulations: process.env.NEXT_PUBLIC_CONGRATULATION_VIDEO_URL ?? LOCAL_VIDEOS.congratulations,
-  childhood: process.env.NEXT_PUBLIC_CHILDHOOD_VIDEO_URL ?? LOCAL_VIDEOS.childhood,
 }
+
+const CHILDHOOD_VK_EMBED_URL =
+  "https://vkvideo.ru/video_ext.php?oid=-236919220&id=456239017&hd=2&autoplay=1"
 
 export default function BirthdayPage() {
   const [stage, setStage] = useState<"countdown" | "reveal">("countdown")
@@ -38,7 +39,6 @@ export default function BirthdayPage() {
   const [showVideo1, setShowVideo1] = useState(false)
   const [showVideo2, setShowVideo2] = useState(false)
   const [video1Error, setVideo1Error] = useState(false)
-  const [video2Error, setVideo2Error] = useState(false)
 
   const handleCountdownComplete = () => {
     setStage("reveal")
@@ -169,7 +169,6 @@ export default function BirthdayPage() {
             </div>
             <button
               onClick={() => {
-                setVideo2Error(false)
                 setShowVideo2(true)
               }}
               className="relative w-48 h-48 md:w-64 md:h-64 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
@@ -248,22 +247,15 @@ export default function BirthdayPage() {
                 >
                   Закрыть
                 </button>
-                <video
-                  src={VIDEO_SOURCES.childhood}
-                  className="w-full h-full"
-                  controls
-                  autoPlay
-                  playsInline
-                  preload="metadata"
-                  poster="/babar.png"
-                  onError={() => setVideo2Error(true)}
+                <iframe
+                  src={CHILDHOOD_VK_EMBED_URL}
+                  className="h-full w-full"
+                  allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="Привет из детства — VK Video"
                 />
-                {video2Error && (
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white text-sm p-3">
-                    Не удалось загрузить видео. Положите файл в <code>/public/video/babar.mp4</code> или задайте{" "}
-                    <code>NEXT_PUBLIC_CHILDHOOD_VIDEO_URL</code>.
-                  </div>
-                )}
               </div>
             </div>
           )}
