@@ -5,10 +5,14 @@ import { useEffect, useState } from "react"
 
 interface PhotoModalProps {
   src: string
+  currentIndex: number
+  total: number
   onClose: () => void
+  onNext: () => void
+  onPrev: () => void
 }
 
-export function PhotoModal({ src, onClose }: PhotoModalProps) {
+export function PhotoModal({ src, currentIndex, total, onClose, onNext, onPrev }: PhotoModalProps) {
   const [isClosing, setIsClosing] = useState(false)
 
   const handleClose = () => {
@@ -19,10 +23,12 @@ export function PhotoModal({ src, onClose }: PhotoModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") handleClose()
+      if (e.key === "ArrowRight") onNext()
+      if (e.key === "ArrowLeft") onPrev()
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [])
+  }, [onNext, onPrev])
 
   return (
     <div
@@ -64,8 +70,26 @@ export function PhotoModal({ src, onClose }: PhotoModalProps) {
 
         {/* Подпись снизу */}
         <p className="absolute bottom-3 md:bottom-4 left-0 right-0 text-center text-muted-foreground font-handwriting text-sm md:text-lg">
-          Воспоминание ✨
+          Воспоминание ✨ ({currentIndex + 1}/{total})
         </p>
+
+        <button
+          type="button"
+          onClick={onPrev}
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-black/60 text-white rounded-full flex items-center justify-center hover:bg-black/75 transition-colors"
+          aria-label="Предыдущее фото"
+        >
+          ←
+        </button>
+
+        <button
+          type="button"
+          onClick={onNext}
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-black/60 text-white rounded-full flex items-center justify-center hover:bg-black/75 transition-colors"
+          aria-label="Следующее фото"
+        >
+          →
+        </button>
 
         {/* Кнопка закрытия */}
         <button

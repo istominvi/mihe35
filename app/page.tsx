@@ -51,7 +51,14 @@ export default function BirthdayPage() {
 
   const handleClosePhoto = () => {
     setShowPhoto(false)
+  }
+
+  const handleNextPhoto = () => {
     setCurrentPhotoIndex((prev) => (prev + 1) % PHOTOS.length)
+  }
+
+  const handlePrevPhoto = () => {
+    setCurrentPhotoIndex((prev) => (prev - 1 + PHOTOS.length) % PHOTOS.length)
   }
 
   return (
@@ -187,7 +194,11 @@ export default function BirthdayPage() {
           {showPhoto && (
             <PhotoModal
               src={PHOTOS[currentPhotoIndex]}
+              currentIndex={currentPhotoIndex}
+              total={PHOTOS.length}
               onClose={handleClosePhoto}
+              onNext={handleNextPhoto}
+              onPrev={handlePrevPhoto}
             />
           )}
           
