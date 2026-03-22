@@ -1,5 +1,8 @@
 name: Deploy static site to GitHub Pages
 
+# Note: this workflow assumes Pages is already enabled in repository settings
+# (Settings → Pages → Build and deployment → Source: GitHub Actions).
+
 on:
   push:
     branches:
