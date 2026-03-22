@@ -31,7 +31,32 @@ GitHub Web Upload ограничен ~25 MB на файл. Это огранич
 3. Выполняет `pnpm install --frozen-lockfile` и `pnpm build`.
 4. Публикует папку `out/` в ветку `gh-pages` через `peaceiris/actions-gh-pages`.
 
-Проект собирается как статика через `output: 'export'` в `next.config.mjs`, поэтому он подходит для GitHub Pages.
+Проект собирается как статика через `output: 'export'` в `next.config.mjs`, поэтому он подходит для GitHub Pages. Для кастомного домена в CI принудительно используется пустой `BASE_PATH`, чтобы ссылки были от корня домена.
+
+
+### Если в логах есть `Failed to create deployment (status: 404)`
+
+Это ошибка API-деплоя `actions/deploy-pages` (у репозитория не активирован Pages site).
+
+В текущем workflow используется деплой в ветку `gh-pages` (без GitHub Pages Deployment API), чтобы избежать 404 на endpoint `createPagesDeployment`.
+
+Что нужно один раз проверить в настройках:
+
+1. `Settings → Pages`.
+2. `Build and deployment → Source = Deploy from a branch`.
+3. `Branch = gh-pages` и `/ (root)`.
+
+После этого каждый push в `main` будет обновлять ветку `gh-pages`, а GitHub Pages будет забирать статику оттуда.
+
+
+### По какой ссылке открывать сайт
+
+После успешного workflow смотри:
+
+- `https://istominvi.github.io/mihe35/`
+- `https://mihe35.ru/`
+
+Если `mihe35.ru` ещё не выпущен/не обновился в DNS, временно проверяй по `github.io` ссылке выше.
 
 
 ### Если в логах есть `Failed to create deployment (status: 404)`

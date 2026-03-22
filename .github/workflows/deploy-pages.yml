@@ -38,6 +38,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build static export
+        env:
+          BASE_PATH: ""
+          NEXT_PUBLIC_BASE_PATH: ""
         run: pnpm build
 
       - name: Deploy to gh-pages branch
@@ -49,3 +52,16 @@ jobs:
           force_orphan: true
           enable_jekyll: false
           cname: mihe35.ru
+
+      - name: Show site URLs
+        run: |
+          echo "Published branch: gh-pages"
+          echo "GitHub Pages URL: https://istominvi.github.io/mihe35/"
+          echo "Custom domain: https://mihe35.ru/"
+          {
+            echo "### Website URLs"
+            echo "- GitHub Pages: https://istominvi.github.io/mihe35/"
+            echo "- Custom domain: https://mihe35.ru/"
+            echo ""
+            echo "If either URL shows 404, verify Settings -> Pages -> Source = Deploy from a branch, Branch = gh-pages, Folder = /(root)."
+          } >> "$GITHUB_STEP_SUMMARY"
