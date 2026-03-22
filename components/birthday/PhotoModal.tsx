@@ -1,15 +1,21 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 interface PhotoModalProps {
   src: string
+  currentIndex: number
+  total: number
   onClose: () => void
+  onNext: () => void
+  onPrev: () => void
 }
 
-export function PhotoModal({ src, onClose }: PhotoModalProps) {
+export function PhotoModal({ src, currentIndex, total, onClose, onNext, onPrev }: PhotoModalProps) {
   const [isClosing, setIsClosing] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const rotationRef = useRef((Math.random() - 0.5) * 6)
 
   const handleClose = () => {
     setIsClosing(true)
@@ -17,12 +23,18 @@ export function PhotoModal({ src, onClose }: PhotoModalProps) {
   }
 
   useEffect(() => {
+    setIsLoading(true)
+  }, [src])
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") handleClose()
+      if (e.key === "ArrowRight") onNext()
+      if (e.key === "ArrowLeft") onPrev()
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [])
+  }, [onNext, onPrev])
 
   return (
     <div
@@ -41,7 +53,7 @@ export function PhotoModal({ src, onClose }: PhotoModalProps) {
         }`}
         onClick={(e) => e.stopPropagation()}
         style={{
-          transform: `rotate(${(Math.random() - 0.5) * 6}deg)`,
+          transform: `rotate(${rotationRef.current}deg)`,
         }}
       >
         {/* Скотч сверху */}
@@ -52,20 +64,49 @@ export function PhotoModal({ src, onClose }: PhotoModalProps) {
           }}
         />
 
-        <div className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] overflow-hidden">
+        <div className="relative w-[85vw] h-[70vh] max-w-[900px] max-h-[75vh] overflow-hidden rounded-sm bg-zinc-100">
           <Image
             src={src}
             alt="Памятное фото"
             fill
-            className="object-cover"
-            sizes="(max-width: 768px) 280px, 400px"
+            className="object-contain"
+            sizes="(max-width: 768px) 85vw, 900px"
+            onLoad={() => setIsLoading(false)}
           />
+          {isLoading && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/35 backdrop-blur-[1px] text-white gap-3">
+              <div className="h-9 w-9 rounded-full border-4 border-white/40 border-t-white animate-spin" />
+              <p className="text-sm md:text-base">Загружаем следующее фото…</p>
+            </div>
+          )}
         </div>
 
         {/* Подпись снизу */}
         <p className="absolute bottom-3 md:bottom-4 left-0 right-0 text-center text-muted-foreground font-handwriting text-sm md:text-lg">
-          Воспоминание ✨
+          Воспоминание ✨ ({currentIndex + 1}/{total})
         </p>
+
+        <button
+          type="button"
+          onClick={onPrev}
+          className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-white/90 text-zinc-800 shadow-lg border border-zinc-200 hover:bg-white hover:scale-105 active:scale-95 transition-all"
+          aria-label="Предыдущее фото"
+        >
+          <svg viewBox="0 0 24 24" className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true">
+            <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          onClick={onNext}
+          className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-white/90 text-zinc-800 shadow-lg border border-zinc-200 hover:bg-white hover:scale-105 active:scale-95 transition-all"
+          aria-label="Следующее фото"
+        >
+          <svg viewBox="0 0 24 24" className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
 
         {/* Кнопка закрытия */}
         <button

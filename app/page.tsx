@@ -3,7 +3,6 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Pacifico } from "next/font/google"
-import { Countdown } from "@/components/birthday/Countdown"
 import { Confetti } from "@/components/birthday/Confetti"
 import { PhotoModal } from "@/components/birthday/PhotoModal"
 
@@ -14,11 +13,16 @@ const pacifico = Pacifico({
 })
 
 const PHOTOS: string[] = [
-  "/photo/1.jpg",
-  "/photo/2.jpg",
-  "/photo/3.jpg",
-  "/photo/4.jpg",
-  "/photo/5.jpg",
+  "/photo/01.png",
+  "/photo/02.png",
+  "/photo/03.png",
+  "/photo/04.png",
+  "/photo/05.png",
+  "/photo/06.png",
+  "/photo/07.png",
+  "/photo/08.png",
+  "/photo/09.png",
+  "/photo/10.png",
 ]
 
 const LOCAL_VIDEOS = {
@@ -33,16 +37,11 @@ const CHILDHOOD_VK_EMBED_URL =
   "https://vkvideo.ru/video_ext.php?oid=-236919220&id=456239017&hd=2&autoplay=1"
 
 export default function BirthdayPage() {
-  const [stage, setStage] = useState<"countdown" | "reveal">("countdown")
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
   const [showPhoto, setShowPhoto] = useState(false)
   const [showVideo1, setShowVideo1] = useState(false)
   const [showVideo2, setShowVideo2] = useState(false)
   const [video1Error, setVideo1Error] = useState(false)
-
-  const handleCountdownComplete = () => {
-    setStage("reveal")
-  }
 
   const handleAlbumClick = () => {
     if (PHOTOS.length > 0) {
@@ -52,15 +51,19 @@ export default function BirthdayPage() {
 
   const handleClosePhoto = () => {
     setShowPhoto(false)
+  }
+
+  const handleNextPhoto = () => {
     setCurrentPhotoIndex((prev) => (prev + 1) % PHOTOS.length)
+  }
+
+  const handlePrevPhoto = () => {
+    setCurrentPhotoIndex((prev) => (prev - 1 + PHOTOS.length) % PHOTOS.length)
   }
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
-      {stage === "countdown" ? (
-        <Countdown onComplete={handleCountdownComplete} />
-      ) : (
-        <div className="relative min-h-screen bg-white transition-all duration-1000">
+      <div className="relative min-h-screen bg-white transition-all duration-1000">
           {/* Конфетти */}
           <Confetti />
           
@@ -191,7 +194,11 @@ export default function BirthdayPage() {
           {showPhoto && (
             <PhotoModal
               src={PHOTOS[currentPhotoIndex]}
+              currentIndex={currentPhotoIndex}
+              total={PHOTOS.length}
               onClose={handleClosePhoto}
+              onNext={handleNextPhoto}
+              onPrev={handlePrevPhoto}
             />
           )}
           
@@ -259,8 +266,7 @@ export default function BirthdayPage() {
               </div>
             </div>
           )}
-        </div>
-      )}
+      </div>
       
       <style jsx global>{`
         @keyframes fade-in {
