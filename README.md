@@ -45,8 +45,10 @@ GitHub Web Upload ограничен ~25 MB на файл. Это огранич
 ### Что включить в настройках GitHub (один раз)
 
 1. `Settings` → `Pages`.
-2. В `Build and deployment` выбрать **Source = GitHub Actions**.
+2. В `Build and deployment` выбрать **Source = GitHub Actions** (если ещё не включено).
 3. Убедиться, что домен `mihe35.ru` отображается в Custom domain (обычно подтянется автоматически после первого деплоя).
 4. Включить `Enforce HTTPS` после того, как сертификат выпустится (может занять до нескольких минут/часов).
 
 После этого любой merge в `main` будет автоматически выкатывать сайт на GitHub Pages.
+
+> Примечание: в workflow включен `actions/configure-pages` с `enablement: true`, чтобы первый запуск мог автоматически инициализировать Pages в репозитории.
