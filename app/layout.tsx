@@ -5,15 +5,17 @@ import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+const withBase = (path: string) => `${BASE_PATH}${path}`
 
 export const metadata: Metadata = {
   title: 'С Днём Рождения, Миша! 🎉',
   description: 'Поздравительная открытка для Миши с 35-летием!',
   generator: 'v0.app',
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/apple-icon.png',
+    icon: withBase('/favicon.png'),
+    shortcut: withBase('/favicon.png'),
+    apple: withBase('/apple-icon.png'),
   },
 }
 

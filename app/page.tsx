@@ -12,21 +12,24 @@ const pacifico = Pacifico({
   subsets: ["latin", "cyrillic"],
 })
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? ""
+const withBase = (path: string) => `${BASE_PATH}${path}`
+
 const PHOTOS: string[] = [
-  "/photo/01.png",
-  "/photo/02.png",
-  "/photo/03.png",
-  "/photo/04.png",
-  "/photo/05.png",
-  "/photo/06.png",
-  "/photo/07.png",
-  "/photo/08.png",
-  "/photo/09.png",
-  "/photo/10.png",
+  withBase("/photo/01.png"),
+  withBase("/photo/02.png"),
+  withBase("/photo/03.png"),
+  withBase("/photo/04.png"),
+  withBase("/photo/05.png"),
+  withBase("/photo/06.png"),
+  withBase("/photo/07.png"),
+  withBase("/photo/08.png"),
+  withBase("/photo/09.png"),
+  withBase("/photo/10.png"),
 ]
 
 const LOCAL_VIDEOS = {
-  congratulations: "/video/congratulation.mp4",
+  congratulations: withBase("/video/congratulation.mp4"),
 }
 
 const VIDEO_SOURCES = {
@@ -70,7 +73,7 @@ export default function BirthdayPage() {
           {/* Баннер HAPPY BIRTHDAY */}
           <div className="fixed inset-x-0 top-0 z-40 pointer-events-none">
             <img
-              src="/happy3.png"
+              src={withBase("/happy3.png")}
               alt="Happy Birthday"
               className="block w-full h-auto max-h-[92px] md:max-h-[120px] object-contain object-top align-top"
             />
@@ -80,7 +83,7 @@ export default function BirthdayPage() {
           <div className="relative w-full pt-32 md:pt-40">
             <div className="relative w-full max-w-xl mx-auto px-4">
               <Image
-                src="/hero.png"
+                src={withBase("/hero.png")}
                 alt="Миша с шарами 35"
                 width={800}
                 height={1000}
@@ -134,7 +137,7 @@ export default function BirthdayPage() {
               className="relative w-48 h-48 md:w-64 md:h-64 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
               <Image
-                src="/congratulation.png"
+                src={withBase("/congratulation.png")}
                 alt="Поздравление"
                 width={300}
                 height={300}
@@ -154,7 +157,7 @@ export default function BirthdayPage() {
               className="relative w-48 h-48 md:w-64 md:h-64 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
               <Image
-                src="/albom.png"
+                src={withBase("/albom.png")}
                 alt="Фотоальбом"
                 width={300}
                 height={300}
@@ -177,7 +180,7 @@ export default function BirthdayPage() {
               className="relative w-48 h-48 md:w-64 md:h-64 transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
               <Image
-                src="/babar.png"
+                src={withBase("/babar.png")}
                 alt="Бабар"
                 width={300}
                 height={300}
@@ -225,7 +228,7 @@ export default function BirthdayPage() {
                   autoPlay
                   playsInline
                   preload="metadata"
-                  poster="/congratulation.png"
+                  poster={withBase("/congratulation.png")}
                   onError={() => setVideo1Error(true)}
                 />
                 {video1Error && (
