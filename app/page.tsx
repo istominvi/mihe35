@@ -2,11 +2,17 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import { Pacifico } from "next/font/google"
 import { Countdown } from "@/components/birthday/Countdown"
 import { Confetti } from "@/components/birthday/Confetti"
 import { PhotoModal } from "@/components/birthday/PhotoModal"
 
 // Список фотографий из /public/photo
+const pacifico = Pacifico({
+  weight: "400",
+  subsets: ["latin", "cyrillic"],
+})
+
 const PHOTOS: string[] = [
   "/photo/1.jpg",
   "/photo/2.jpg",
@@ -69,15 +75,15 @@ export default function BirthdayPage() {
             </div>
             
             {/* Заголовок с заходом на изображение */}
-            <div className="relative -mt-12 md:-mt-20 z-10 px-4">
+            <div className="relative mt-2 md:mt-4 z-10 px-4">
               <div className="relative mx-auto max-w-4xl">
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 z-0 text-center text-2xl md:text-4xl lg:text-5xl font-bold leading-tight text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)]"
+                  className={`pointer-events-none absolute inset-0 z-0 text-center text-2xl md:text-4xl lg:text-5xl leading-tight text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)] ${pacifico.className}`}
                 >
                   Любимый наш Миша, поздравляем тебя с 35-летием!
                 </span>
-                <h1 className="relative z-10 text-2xl md:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-tight text-balance animate-shimmer drop-shadow-lg">
+                <h1 className={`relative z-10 text-2xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-tight text-balance animate-shimmer drop-shadow-lg ${pacifico.className}`}>
                   Любимый наш Миша, поздравляем тебя с 35-летием!
                 </h1>
               </div>
