@@ -51,4 +51,4 @@ GitHub Web Upload ограничен ~25 MB на файл. Это огранич
 
 После этого любой merge в `main` будет автоматически выкатывать сайт на GitHub Pages.
 
-> Примечание: в workflow включен `actions/configure-pages` с `enablement: true`, чтобы первый запуск мог автоматически инициализировать Pages в репозитории.
+> Примечание: GitHub API часто не даёт `GITHUB_TOKEN` прав на автоматическое создание Pages-сайта. Если деплой запускается впервые, включи Pages вручную: `Settings → Pages → Source = GitHub Actions`.
