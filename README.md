@@ -29,9 +29,34 @@ GitHub Web Upload ограничен ~25 MB на файл. Это огранич
 1. На каждый `push` в `main` (включая merge PR) запускает сборку.
 2. Ставит Node.js 22 и pnpm 10.
 3. Выполняет `pnpm install --frozen-lockfile` и `pnpm build`.
-4. Публикует папку `out/` в GitHub Pages через `actions/deploy-pages`.
+4. Публикует папку `out/` в ветку `gh-pages` через `peaceiris/actions-gh-pages`.
 
-Проект собирается как статика через `output: 'export'` в `next.config.mjs`, поэтому он подходит для GitHub Pages.
+Проект собирается как статика через `output: 'export'` в `next.config.mjs`, поэтому он подходит для GitHub Pages. Для кастомного домена в CI принудительно используется пустой `BASE_PATH`, чтобы ссылки были от корня домена.
+
+
+### Если в логах есть `Failed to create deployment (status: 404)`
+
+Это ошибка API-деплоя `actions/deploy-pages` (у репозитория не активирован Pages site).
+
+В текущем workflow используется деплой в ветку `gh-pages` (без GitHub Pages Deployment API), чтобы избежать 404 на endpoint `createPagesDeployment`.
+
+Что нужно один раз проверить в настройках:
+
+1. `Settings → Pages`.
+2. `Build and deployment → Source = Deploy from a branch`.
+3. `Branch = gh-pages` и `/ (root)`.
+
+После этого каждый push в `main` будет обновлять ветку `gh-pages`, а GitHub Pages будет забирать статику оттуда.
+
+
+### По какой ссылке открывать сайт
+
+После успешного workflow смотри:
+
+- `https://istominvi.github.io/mihe35/`
+- `https://mihe35.ru/`
+
+Если `mihe35.ru` ещё не выпущен/не обновился в DNS, временно проверяй по `github.io` ссылке выше.
 
 ## Custom domain `mihe35.ru`
 
@@ -45,10 +70,10 @@ GitHub Web Upload ограничен ~25 MB на файл. Это огранич
 ### Что включить в настройках GitHub (один раз)
 
 1. `Settings` → `Pages`.
-2. В `Build and deployment` выбрать **Source = GitHub Actions** (если ещё не включено).
-3. Убедиться, что домен `mihe35.ru` отображается в Custom domain (обычно подтянется автоматически после первого деплоя).
-4. Включить `Enforce HTTPS` после того, как сертификат выпустится (может занять до нескольких минут/часов).
+2. В `Build and deployment` выбрать **Source = Deploy from a branch**.
+3. Выбрать ветку **`gh-pages`** и папку **`/ (root)`**.
+4. Убедиться, что домен `mihe35.ru` отображается в Custom domain (обычно подтянется автоматически после первого деплоя), затем включить `Enforce HTTPS` после выпуска сертификата (может занять от нескольких минут до нескольких часов).
 
 После этого любой merge в `main` будет автоматически выкатывать сайт на GitHub Pages.
 
-> Примечание: GitHub API часто не даёт `GITHUB_TOKEN` прав на автоматическое создание Pages-сайта. Если деплой запускается впервые, включи Pages вручную: `Settings → Pages → Source = GitHub Actions`.
+> Примечание: теперь деплой идёт через ветку `gh-pages`, поэтому в `Settings → Pages` должен быть выбран источник `Deploy from a branch` и ветка `gh-pages`.
