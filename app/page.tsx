@@ -216,6 +216,7 @@ export default function BirthdayPage() {
                   src={VIDEO_SOURCES.congratulations}
                   className="w-full h-full"
                   controls
+                  autoPlay
                   playsInline
                   preload="metadata"
                   poster="/congratulation.png"
@@ -251,6 +252,7 @@ export default function BirthdayPage() {
                   src={VIDEO_SOURCES.childhood}
                   className="w-full h-full"
                   controls
+                  autoPlay
                   playsInline
                   preload="metadata"
                   poster="/babar.png"
