@@ -76,14 +76,14 @@ export default function BirthdayPage() {
             
             {/* Заголовок с заходом на изображение */}
             <div className="relative mt-2 md:mt-4 z-10 px-4">
-              <div className="relative mx-auto max-w-4xl w-full py-4 md:py-6 flex items-center justify-center">
+              <div className="relative mx-auto max-w-4xl w-full py-6 md:py-8 flex items-center justify-center overflow-visible">
                 <span
                   aria-hidden="true"
-                  className={`pointer-events-none absolute inset-0 z-0 flex items-center justify-center text-center text-3xl md:text-5xl lg:text-6xl leading-[1.25] text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)] px-2 md:px-4 ${pacifico.className}`}
+                  className={`pointer-events-none absolute inset-0 z-0 flex items-center justify-center text-center text-3xl md:text-5xl lg:text-6xl leading-[1.35] text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)] px-2 md:px-4 ${pacifico.className}`}
                 >
                   Любимый наш Миша, поздравляем тебя с 35-летием!
                 </span>
-                <h1 className={`relative z-10 text-3xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-[1.25] text-balance animate-shimmer drop-shadow-lg px-2 md:px-4 ${pacifico.className}`}>
+                <h1 className={`relative z-10 py-1 text-3xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-[1.35] text-balance animate-shimmer drop-shadow-lg px-2 md:px-4 ${pacifico.className}`}>
                   Любимый наш Миша, поздравляем тебя с 35-летием!
                 </h1>
               </div>
