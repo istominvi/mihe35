@@ -58,6 +58,21 @@ GitHub Web Upload ограничен ~25 MB на файл. Это огранич
 
 Если `mihe35.ru` ещё не выпущен/не обновился в DNS, временно проверяй по `github.io` ссылке выше.
 
+
+### Если в логах есть `Failed to create deployment (status: 404)`
+
+Это ошибка API-деплоя `actions/deploy-pages` (у репозитория не активирован Pages site).
+
+В текущем workflow используется деплой в ветку `gh-pages` (без GitHub Pages Deployment API), чтобы избежать 404 на endpoint `createPagesDeployment`.
+
+Что нужно один раз проверить в настройках:
+
+1. `Settings → Pages`.
+2. `Build and deployment → Source = Deploy from a branch`.
+3. `Branch = gh-pages` и `/ (root)`.
+
+После этого каждый push в `main` будет обновлять ветку `gh-pages`, а GitHub Pages будет забирать статику оттуда.
+
 ## Custom domain `mihe35.ru`
 
 Для автопривязки домена в деплое добавлены:
