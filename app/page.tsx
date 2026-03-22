@@ -2,15 +2,11 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Pacifico } from "next/font/google"
 import { Confetti } from "@/components/birthday/Confetti"
 import { PhotoModal } from "@/components/birthday/PhotoModal"
 
 // Список фотографий из /public/photo
-const pacifico = Pacifico({
-  weight: "400",
-  subsets: ["latin", "cyrillic"],
-})
+const pacificoClassName = "font-serif italic"
 
 const PHOTOS: string[] = [
   "/photo/01.png",
@@ -94,11 +90,11 @@ export default function BirthdayPage() {
               <div className="relative mx-auto max-w-4xl w-full py-8 md:py-10 flex items-center justify-center overflow-visible">
                 <span
                   aria-hidden="true"
-                  className={`pointer-events-none absolute inset-x-0 -inset-y-6 md:-inset-y-8 z-0 flex items-center justify-center text-center text-3xl md:text-5xl lg:text-6xl leading-[1.45] text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)] px-2 md:px-4 ${pacifico.className}`}
+                  className={`pointer-events-none absolute inset-x-0 -inset-y-6 md:-inset-y-8 z-0 flex items-center justify-center text-center text-3xl md:text-5xl lg:text-6xl leading-[1.45] text-balance text-white opacity-95 blur-[10px] [text-shadow:0_0_24px_rgba(255,255,255,0.95),0_0_48px_rgba(255,255,255,0.8)] px-2 md:px-4 ${pacificoClassName}`}
                 >
                   Любимый наш Миша, поздравляем тебя с 35-летием!
                 </span>
-                <h1 className={`relative z-10 block pt-2 pb-4 text-3xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-[1.45] text-balance animate-shimmer drop-shadow-lg px-2 md:px-4 ${pacifico.className}`}>
+                <h1 className={`relative z-10 block pt-2 pb-4 text-3xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-center leading-[1.45] text-balance animate-shimmer drop-shadow-lg px-2 md:px-4 ${pacificoClassName}`}>
                   Любимый наш Миша, поздравляем тебя с 35-летием!
                 </h1>
               </div>
@@ -116,7 +112,7 @@ export default function BirthdayPage() {
                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
                   Береги себя и свою семью!
                 </p>
-                <p className={`text-2xl md:text-3xl font-semibold text-amber-600 mt-6 ${pacifico.className}`}>
+                <p className={`text-2xl md:text-3xl font-semibold text-amber-600 mt-6 ${pacificoClassName}`}>
                   Любим тебя!
                 </p>
               </div>
@@ -124,7 +120,7 @@ export default function BirthdayPage() {
             
             {/* Первая коробка - Поздравление (видео) */}
             <div className="text-center mb-4">
-              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Поздравление</p>
+              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacificoClassName}`}>Поздравление</p>
             </div>
             <button
               onClick={() => {
@@ -147,7 +143,7 @@ export default function BirthdayPage() {
             
             {/* Вторая коробка - Альбом с фотками */}
             <div className="text-center mb-4">
-              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Фоточки</p>
+              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacificoClassName}`}>Фоточки</p>
             </div>
             <button
               onClick={handleAlbumClick}
@@ -168,7 +164,7 @@ export default function BirthdayPage() {
             
             {/* Третья коробка - Бабар */}
             <div className="text-center mb-4">
-              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacifico.className}`}>Привет из детства</p>
+              <p className={`text-xl md:text-2xl font-medium text-amber-700 ${pacificoClassName}`}>Привет из детства</p>
             </div>
             <button
               onClick={() => {
@@ -214,7 +210,7 @@ export default function BirthdayPage() {
               >
                 <button
                   onClick={() => setShowVideo1(false)}
-                  className={`absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10 ${pacifico.className}`}
+                  className={`absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10 ${pacificoClassName}`}
                 >
                   Закрыть
                 </button>
@@ -250,7 +246,7 @@ export default function BirthdayPage() {
               >
                 <button
                   onClick={() => setShowVideo2(false)}
-                  className={`absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10 ${pacifico.className}`}
+                  className={`absolute -top-12 right-0 text-white text-lg hover:text-amber-400 transition-colors z-10 ${pacificoClassName}`}
                 >
                   Закрыть
                 </button>
