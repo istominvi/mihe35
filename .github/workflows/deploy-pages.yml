@@ -47,12 +47,16 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: ""
         run: pnpm build
 
+      - name: Verify export folder
+        run: test -d out
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
   deploy:
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
     environment:
