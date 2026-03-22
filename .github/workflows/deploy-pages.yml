@@ -23,6 +23,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: false
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -43,8 +48,8 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: ""
         run: pnpm build
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
@@ -53,15 +58,16 @@ jobs:
           enable_jekyll: false
           cname: mihe35.ru
 
-      - name: Show site URLs
-        run: |
-          echo "Published branch: gh-pages"
-          echo "GitHub Pages URL: https://istominvi.github.io/mihe35/"
-          echo "Custom domain: https://mihe35.ru/"
-          {
-            echo "### Website URLs"
-            echo "- GitHub Pages: https://istominvi.github.io/mihe35/"
-            echo "- Custom domain: https://mihe35.ru/"
-            echo ""
-            echo "If either URL shows 404, verify Settings -> Pages -> Source = Deploy from a branch, Branch = gh-pages, Folder = /(root)."
-          } >> "$GITHUB_STEP_SUMMARY"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
